@@ -17,6 +17,11 @@ const Home = () => {
     JSON.parse(window.localStorage.getItem("todoList")) || initState
   );
 
+  const setData = (data) => {
+    setTodoAppData(data);
+    window.localStorage.setItem("todoList", JSON.stringify(data));
+  };
+
   const inputHandler = (val) => {
     setTodoAppData((prevState) => {
       return { ...prevState, inputTask: val };
@@ -40,8 +45,7 @@ const Home = () => {
         updation: false,
         updateId: 0,
       };
-      setTodoAppData(addTaskData);
-      window.localStorage.setItem("todoList", JSON.stringify(addTaskData));
+      setData(addTaskData);
     } else {
       alert("Please enter the task name and then add!");
     }
@@ -55,8 +59,7 @@ const Home = () => {
       updation: todoAppData.updation,
       updateId: todoAppData.updateId,
     };
-    setTodoAppData(deletedTodoData);
-    window.localStorage.setItem("todoList", JSON.stringify(deletedTodoData));
+    setData(deletedTodoData);
   };
 
   const editHandler = (id) => {
@@ -67,8 +70,7 @@ const Home = () => {
       updation: true,
       updateId: id,
     };
-    setTodoAppData(editTodoData);
-    window.localStorage.setItem("todoList", JSON.stringify(editTodoData));
+    setData(editTodoData);
     navigate("/update");
   };
 
